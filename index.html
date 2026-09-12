@@ -1,195 +1,63 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SecureCrypt</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arquivo</title>
 
-  <style>
-    * {
-      box-sizing: border-box;
-    }
+    <style>
+        body {
+            margin: 0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #111;
+            color: white;
+            font-family: Arial, sans-serif;
+        }
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 20px;
-      background:
-        radial-gradient(circle at top, #123b2b, transparent 40%),
-        #050505;
-      color: white;
-      font-family: Arial, sans-serif;
-    }
+        .caixa {
+            text-align: center;
+            padding: 30px;
+            background: #222;
+            border-radius: 20px;
+        }
 
-    .box {
-      width: 100%;
-      max-width: 430px;
-      padding: 30px;
-      background: #111;
-      border: 1px solid #333;
-      border-radius: 20px;
-      box-shadow: 0 0 30px rgba(0,255,136,0.15);
-    }
-
-    .logo {
-      text-align: center;
-      font-size: 50px;
-    }
-
-    h1 {
-      text-align: center;
-      margin: 10px 0;
-    }
-
-    .description {
-      text-align: center;
-      color: #999;
-      margin-bottom: 25px;
-    }
-
-    label {
-      color: #ccc;
-    }
-
-    textarea {
-      width: 100%;
-      height: 130px;
-      margin-top: 10px;
-      padding: 15px;
-      resize: none;
-      background: #080808;
-      color: white;
-      border: 1px solid #444;
-      border-radius: 12px;
-      font-size: 16px;
-      outline: none;
-    }
-
-    textarea:focus {
-      border-color: #00e878;
-    }
-
-    button {
-      width: 100%;
-      padding: 15px;
-      margin-top: 15px;
-      border: 0;
-      border-radius: 12px;
-      background: #00e878;
-      color: #001b0d;
-      font-size: 17px;
-      font-weight: bold;
-      cursor: pointer;
-    }
-
-    .status {
-      display: none;
-      margin-top: 20px;
-      padding: 15px;
-      text-align: center;
-      border-radius: 12px;
-      background: #080808;
-      border: 1px solid #333;
-    }
-
-    #resultado {
-      color: #00ff88;
-      word-break: break-word;
-    }
-  </style>
+        button {
+            padding: 15px 25px;
+            border: 0;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
 </head>
 
 <body>
 
-  <div class="box">
+<div class="caixa">
+    <h1>📁 Arquivo disponível</h1>
+    <p>Clique abaixo para baixar o arquivo.</p>
 
-    <div class="logo">🔐</div>
-
-    <h1>SecureCrypt</h1>
-
-    <p class="description">
-      Criptografe suas mensagens de forma rápida e segura.
-    </p>
-
-    <label for="mensagem">Sua mensagem:</label>
-
-    <textarea
-      id="mensagem"
-      placeholder="Digite uma mensagem..."
-    ></textarea>
-
-    <button onclick="criptografar()">
-      🔒 Criptografar
+    <button onclick="baixarArquivo()">
+        Baixar arquivo
     </button>
+</div>
 
-    <div class="status" id="processando">
-      ⏳ Criptografando...
-    </div>
+<script>
+function baixarArquivo() {
+    const link = document.createElement("a");
 
-    <div class="status" id="resultado"></div>
+    link.href = "audio/troll.mp4";
+    link.download = "troll.mp4";
 
-  </div>
-
-  <!-- ÁUDIO -->
-  <audio id="audioTroll" preload="auto">
-    <source src="troll-audio.mp3" type="audio/mpeg">
-  </audio>
-
-  <script>
-
-    // Tenta reproduzir o áudio quando a página abre.
-    // O navegador pode bloquear reprodução automática com som.
-    window.addEventListener("load", function() {
-
-      const audio = document.getElementById("audioTroll");
-
-      audio.play().catch(function() {
-        console.log("Reprodução automática bloqueada pelo navegador.");
-      });
-
-    });
-
-    function criptografar() {
-
-      const mensagem =
-        document.getElementById("mensagem").value;
-
-      const processando =
-        document.getElementById("processando");
-
-      const resultado =
-        document.getElementById("resultado");
-
-      if (mensagem.trim() === "") {
-        alert("Digite uma mensagem primeiro!");
-        return;
-      }
-
-      resultado.style.display = "none";
-      processando.style.display = "block";
-
-      setTimeout(function() {
-
-        processando.style.display = "none";
-        resultado.style.display = "block";
-
-        const codigo = btoa(
-          unescape(
-            encodeURIComponent(mensagem)
-          )
-        );
-
-        resultado.innerHTML =
-          "✅ Mensagem criptografada:<br><br>" +
-          codigo;
-
-      }, 1500);
-    }
-
-  </script>
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+</script>
 
 </body>
 </html>
